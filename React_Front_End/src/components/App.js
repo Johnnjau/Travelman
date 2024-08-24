@@ -25,16 +25,16 @@ function App(){
 
     const Pane = () =>{
         if (isRecordsPane){
-            setHeader('Appointments')
+            setHeader('Travelman')
             setSubHeader('Home')
             return(<RecordsContent/>)
         }
         else if (isAddPane){
-            setHeader('Book an Appointment')
+            setHeader('Book a Vehicle')
             setSubHeader('Booking')
             return(<AddAppointment/>)
         }
-        else if (isSearchPane){
+	else if (isSearchPane){
             setHeader('Search Record')
             setSubHeader('Date Range')
             return(<SearchContent/>)
