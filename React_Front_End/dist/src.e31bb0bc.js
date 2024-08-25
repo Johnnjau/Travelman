@@ -24816,15 +24816,15 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     console.log('fetch done!.');
   };
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: "add-vehicle"
+    className: "add-appointment"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "side-design"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "side-design-block"
   })), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-vehicle"
+    className: "book-appointment"
   }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-vehicle-content"
+    className: "book-appointment-content"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-input"
   }, /*#__PURE__*/_react.default.createElement("span", {
@@ -24844,7 +24844,7 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     value: lastNameQuery,
     onChange: updateQuery(setLastNameQuery)
   }))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-vehicle-content"
+    className: "book-appointment-content"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-input"
   }, /*#__PURE__*/_react.default.createElement("span", {
@@ -24855,7 +24855,7 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     value: dateQuery,
     onChange: updateQuery(setDateQuery)
   }))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-vehicle-content"
+    className: "book-appointment-content"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-input"
   }, /*#__PURE__*/_react.default.createElement("span", {
@@ -24875,7 +24875,7 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     value: timeToQuery,
     onChange: updateQuery(setTimeToQuery)
   }))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-vehicle-content"
+    className: "book-appointment-content"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-input"
   }, /*#__PURE__*/_react.default.createElement("span", {
@@ -24886,7 +24886,7 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     value: commentQuery,
     onChange: updateQuery(setCommentQuery)
   }))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-vehicle-content"
+    className: "book-appointment-content"
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "form-input__button",
     onClick: addData
@@ -25571,11 +25571,11 @@ function App() {
   };
   var Pane = function Pane() {
     if (isRecordsPane) {
-      setHeader('Travelman');
+      setHeader('Appointments');
       setSubHeader('Home');
       return /*#__PURE__*/_react.default.createElement(_RecordsContent.RecordsContent, null);
     } else if (isAddPane) {
-      setHeader('Book a Vehicle');
+      setHeader('Book an Appointment');
       setSubHeader('Booking');
       return /*#__PURE__*/_react.default.createElement(_AddAppointment.default, null);
     } else if (isSearchPane) {
@@ -25698,7 +25698,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33203" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35113" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

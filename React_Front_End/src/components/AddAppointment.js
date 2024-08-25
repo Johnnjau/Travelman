@@ -16,6 +16,7 @@ export const AddAppointment = () =>{
         setMessage('')
     }
 
+
     const addData = () =>{
         const url = host_link.concat('/add_appointments')
         const data = {date: dateQuery,first_name:firstNameQuery, last_name:lastNameQuery, comments:commentQuery, time_to:timeToQuery, time_from: timeFromQuery}
@@ -48,28 +49,28 @@ export const AddAppointment = () =>{
     
 
     return(
-        <div className="add-vehicle">
+        <div className="add-appointment">
             <div className="side-design">
                 <div className="side-design-block"></div>
             </div>
-            <div className="book-vehicle">
-                <div className='book-vehicle-content'>
+            <div className="book-appointment">
+                <div className='book-appointment-content'>
                 <div className="form-input">
                     <span className="form-input__label">FIRST NAME</span>
-                    <input className='form-input__text'type="text"  value={firstNameQuery} onChange={updateQuery(setFirstNameQuery)}/>
+                <input className='form-input__text'type="text"  value={firstNameQuery} onChange={updateQuery(setFirstNameQuery)}/>
                 </div>
                 <div className="form-input">
                     <span className="form-input__label">LAST NAME</span>
                     <input className='form-input__text' type="text"  value={lastNameQuery} onChange={updateQuery(setLastNameQuery)}/>
                 </div>
                 </div>
-                <div className='book-vehicle-content'>
+                <div className='book-appointment-content'>
                 <div className="form-input">
                     <span className="form-input__label">DATE</span>
                     <input className = "form-input__text" type="date" value={dateQuery} onChange={updateQuery(setDateQuery)}/>
                 </div>
                 </div>
-                <div className='book-vehicle-content'>
+                <div className='book-appointment-content'>
                 
                 <div className="form-input">
                     <span className="form-input__label">FROM</span>
@@ -80,13 +81,13 @@ export const AddAppointment = () =>{
                     <input className = "form-input__text" type="time" value={timeToQuery} onChange={updateQuery(setTimeToQuery)}/>
                 </div>
                 </div>
-                <div className="book-vehicle-content">
+                <div className="book-appointment-content">
                     <div className="form-input">
                         <span className="form-input__label">COMMENTS</span>
                         <textarea className= 'form-input__text' type="textarea" value={commentQuery} onChange={updateQuery(setCommentQuery)}/>
                     </div>
                 </div>
-                <div className="book-vehicle-content">
+                <div className="book-appointment-content">
                 <button className= "form-input__button" onClick={addData}>Add</button>
                 <h3 className='form-input__message' style={isAccepted?{color:"green"}:{color:"red"}}>{message}</h3>
                 </div>
