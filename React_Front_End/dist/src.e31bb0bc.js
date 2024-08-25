@@ -24721,13 +24721,13 @@ exports.host_link = void 0;
 var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 var host_link = exports.host_link = "http://localhost:5000";
-},{"react":"../node_modules/react/index.js"}],"components/AddAppointment.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"components/AddVehicleBooking.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.AddAppointment = void 0;
+exports.default = exports.AddVehicleBooking = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _rest_connection = require("../data/rest_connection");
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
@@ -24738,7 +24738,7 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-var AddAppointment = exports.AddAppointment = function AddAppointment() {
+var AddVehicleBooking = exports.AddVehicleBooking = function AddVehicleBooking() {
   var _useState = (0, _react.useState)(''),
     _useState2 = _slicedToArray(_useState, 2),
     dateQuery = _useState2[0],
@@ -24761,16 +24761,24 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     setLastNameQuery = _useState10[1];
   var _useState11 = (0, _react.useState)(''),
     _useState12 = _slicedToArray(_useState11, 2),
-    commentQuery = _useState12[0],
-    setCommentQuery = _useState12[1];
+    vehicleTypeQuery = _useState12[0],
+    setVehicleTypeQuery = _useState12[1];
   var _useState13 = (0, _react.useState)(''),
     _useState14 = _slicedToArray(_useState13, 2),
-    message = _useState14[0],
-    setMessage = _useState14[1];
-  var _useState15 = (0, _react.useState)(false),
+    vehicleRegNumberQuery = _useState14[0],
+    setVehicleRegNumberQuery = _useState14[1]; // Added this for vehicle registration number
+  var _useState15 = (0, _react.useState)(''),
     _useState16 = _slicedToArray(_useState15, 2),
-    isAccepted = _useState16[0],
-    setIsAccepted = _useState16[1];
+    commentQuery = _useState16[0],
+    setCommentQuery = _useState16[1];
+  var _useState17 = (0, _react.useState)(''),
+    _useState18 = _slicedToArray(_useState17, 2),
+    message = _useState18[0],
+    setMessage = _useState18[1];
+  var _useState19 = (0, _react.useState)(false),
+    _useState20 = _slicedToArray(_useState19, 2),
+    isAccepted = _useState20[0],
+    setIsAccepted = _useState20[1];
   var updateQuery = function updateQuery(setQuery) {
     return function (event) {
       setQuery(event.target.value);
@@ -24778,14 +24786,17 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     };
   };
   var addData = function addData() {
-    var url = _rest_connection.host_link.concat('/add_appointments');
+    var url = _rest_connection.host_link.concat('/add_vehicle_booking');
     var data = {
       date: dateQuery,
+      time_from: timeFromQuery,
+      time_to: timeToQuery,
       first_name: firstNameQuery,
       last_name: lastNameQuery,
-      comments: commentQuery,
-      time_to: timeToQuery,
-      time_from: timeFromQuery
+      vehicle_type: vehicleTypeQuery,
+      vehicle_registration_number: vehicleRegNumberQuery,
+      // Include this in the data sent to the backend
+      comments: commentQuery
     };
     var requestOptions = {
       method: 'POST',
@@ -24794,12 +24805,13 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
       },
       body: JSON.stringify(data)
     };
-    console.log('data', data);
     fetch(url, requestOptions).then(function (response) {
       if (response.ok) {
         setDateQuery('');
         setFirstNameQuery('');
         setLastNameQuery('');
+        setVehicleTypeQuery('');
+        setVehicleRegNumberQuery(''); // Clear this field after submission
         setCommentQuery('');
         setTimeFromQuery('');
         setTimeToQuery('');
@@ -24807,24 +24819,21 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
       }
       return response.json();
     }).then(function (json) {
-      console.log('json_message', json);
       setMessage(json.message);
     }).catch(function () {
-      console.log("Can’t access " + url + " response. Blocked by browser?");
-      setMessage("Can’t access " + url + " response. Blocked by browser?");
+      setMessage("Can\u2019t access ".concat(url, " response. Blocked by browser?"));
     });
-    console.log('fetch done!.');
   };
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: "add-appointment"
+    className: "add-vehicle"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "side-design"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "side-design-block"
   })), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-appointment"
+    className: "book-vehicle"
   }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-appointment-content"
+    className: "book-vehicle-content"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-input"
   }, /*#__PURE__*/_react.default.createElement("span", {
@@ -24844,7 +24853,27 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     value: lastNameQuery,
     onChange: updateQuery(setLastNameQuery)
   }))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-appointment-content"
+    className: "book-vehicle-content"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "form-input"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "form-input__label"
+  }, "VEHICLE TYPE"), /*#__PURE__*/_react.default.createElement("input", {
+    className: "form-input__text",
+    type: "text",
+    value: vehicleTypeQuery,
+    onChange: updateQuery(setVehicleTypeQuery)
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "form-input"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "form-input__label"
+  }, "VEHICLE REGISTRATION NUMBER"), " ", /*#__PURE__*/_react.default.createElement("input", {
+    className: "form-input__text",
+    type: "text",
+    value: vehicleRegNumberQuery,
+    onChange: updateQuery(setVehicleRegNumberQuery)
+  }))), /*#__PURE__*/_react.default.createElement("div", {
+    className: "book-vehicle-content"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-input"
   }, /*#__PURE__*/_react.default.createElement("span", {
@@ -24855,7 +24884,7 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     value: dateQuery,
     onChange: updateQuery(setDateQuery)
   }))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-appointment-content"
+    className: "book-vehicle-content"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-input"
   }, /*#__PURE__*/_react.default.createElement("span", {
@@ -24875,22 +24904,21 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     value: timeToQuery,
     onChange: updateQuery(setTimeToQuery)
   }))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-appointment-content"
+    className: "book-vehicle-content"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-input"
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "form-input__label"
   }, "COMMENTS"), /*#__PURE__*/_react.default.createElement("textarea", {
     className: "form-input__text",
-    type: "textarea",
     value: commentQuery,
     onChange: updateQuery(setCommentQuery)
   }))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "book-appointment-content"
+    className: "book-vehicle-content"
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "form-input__button",
     onClick: addData
-  }, "Add"), /*#__PURE__*/_react.default.createElement("h3", {
+  }, "Book Vehicle"), /*#__PURE__*/_react.default.createElement("h3", {
     className: "form-input__message",
     style: isAccepted ? {
       color: "green"
@@ -24899,7 +24927,7 @@ var AddAppointment = exports.AddAppointment = function AddAppointment() {
     }
   }, message))));
 };
-var _default = exports.default = AddAppointment;
+var _default = exports.default = AddVehicleBooking;
 },{"react":"../node_modules/react/index.js","../data/rest_connection":"data/rest_connection.js"}],"data/date_arrays.js":[function(require,module,exports) {
 "use strict";
 
@@ -25525,7 +25553,7 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _images = require("../data/images");
 var _Background = _interopRequireDefault(require("./Background"));
-var _AddAppointment = _interopRequireDefault(require("./AddAppointment"));
+var _AddVehicleBooking = _interopRequireDefault(require("./AddVehicleBooking"));
 var _SearchContent = _interopRequireDefault(require("./SearchContent"));
 var _SideContent = require("./SideContent");
 var _RecordsContent = require("./RecordsContent");
@@ -25553,7 +25581,7 @@ function App() {
     _useState6 = _slicedToArray(_useState5, 2),
     isSearchPane = _useState6[0],
     setIsSearchPane = _useState6[1];
-  var _useState7 = (0, _react.useState)('Appointments'),
+  var _useState7 = (0, _react.useState)('Vehicle Booking'),
     _useState8 = _slicedToArray(_useState7, 2),
     header = _useState8[0],
     setHeader = _useState8[1];
@@ -25571,20 +25599,19 @@ function App() {
   };
   var Pane = function Pane() {
     if (isRecordsPane) {
-      setHeader('Appointments');
+      setHeader('Vehicle Booking');
       setSubHeader('Home');
       return /*#__PURE__*/_react.default.createElement(_RecordsContent.RecordsContent, null);
     } else if (isAddPane) {
-      setHeader('Book an Appointment');
+      setHeader('Book a Vehicle');
       setSubHeader('Booking');
-      return /*#__PURE__*/_react.default.createElement(_AddAppointment.default, null);
+      return /*#__PURE__*/_react.default.createElement(_AddVehicleBooking.default, null);
     } else if (isSearchPane) {
       setHeader('Search Record');
       setSubHeader('Date Range');
       return /*#__PURE__*/_react.default.createElement(_SearchContent.default, null);
     }
   };
-  console.log('isAddPane - isRecordsPane - isSearchPane', isAddPane, isRecordsPane, isSearchPane);
   return /*#__PURE__*/_react.default.createElement(_react.Fragment, null, /*#__PURE__*/_react.default.createElement(_Background.default, null), /*#__PURE__*/_react.default.createElement("div", {
     className: "app-body"
   }, /*#__PURE__*/_react.default.createElement("div", {
@@ -25595,21 +25622,21 @@ function App() {
   }), /*#__PURE__*/_react.default.createElement("div", {
     className: "content"
   }, /*#__PURE__*/_react.default.createElement(_SideContent.SideContent, null, /*#__PURE__*/_react.default.createElement(_SideContent.SideContentButton, {
-    on_click: updatePane(setIsRecordsPane).bind(this),
+    on_click: updatePane(setIsRecordsPane),
     img_src: _images.img_home,
     title: "HOME"
   }), /*#__PURE__*/_react.default.createElement(_SideContent.SideContentButton, {
-    on_click: updatePane(setIsAddPane).bind(this),
+    on_click: updatePane(setIsAddPane),
     img_src: _images.img_add,
     title: "ADD"
   }), /*#__PURE__*/_react.default.createElement(_SideContent.SideContentButton, {
-    on_click: updatePane(setIsSearchPane).bind(this),
+    on_click: updatePane(setIsSearchPane),
     img_src: _images.img_search,
     title: "SEARCH"
   })), /*#__PURE__*/_react.default.createElement(Pane, null)))));
 }
 var _default = exports.default = App;
-},{"react":"../node_modules/react/index.js","../data/images":"data/images.js","./Background":"components/Background.js","./AddAppointment":"components/AddAppointment.js","./SearchContent":"components/SearchContent.js","./SideContent":"components/SideContent.js","./RecordsContent":"components/RecordsContent.js","./Header":"components/Header.js","./EditModal":"components/EditModal.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../data/images":"data/images.js","./Background":"components/Background.js","./AddVehicleBooking":"components/AddVehicleBooking.js","./SearchContent":"components/SearchContent.js","./SideContent":"components/SideContent.js","./RecordsContent":"components/RecordsContent.js","./Header":"components/Header.js","./EditModal":"components/EditModal.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -25698,7 +25725,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35113" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41157" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
