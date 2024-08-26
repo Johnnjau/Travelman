@@ -8,7 +8,7 @@ export const AddVehicleBooking = () => {
     const [firstNameQuery, setFirstNameQuery] = useState('');
     const [lastNameQuery, setLastNameQuery] = useState('');
     const [vehicleTypeQuery, setVehicleTypeQuery] = useState('');
-    const [vehicleRegNumberQuery, setVehicleRegNumberQuery] = useState(''); // Added this for vehicle registration number
+    const [vehicleRegNumberQuery, setVehicleRegNumberQuery] = useState('');
     const [commentQuery, setCommentQuery] = useState('');
     const [message, setMessage] = useState('');
     const [isAccepted, setIsAccepted] = useState(false);
@@ -18,45 +18,45 @@ export const AddVehicleBooking = () => {
         setMessage('');
     };
 
-    const addData = () => {
-        const url = host_link.concat('/add_vehicle_booking');
-        const data = {
-            date: dateQuery,
-            time_from: timeFromQuery,
-            time_to: timeToQuery,
-            first_name: firstNameQuery,
-            last_name: lastNameQuery,
-            vehicle_type: vehicleTypeQuery,
-            vehicle_registration_number: vehicleRegNumberQuery, // Include this in the data sent to the backend
-            comments: commentQuery,
-        };
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        };
-
-        fetch(url, requestOptions)
-            .then(response => {
-                if (response.ok) {
-                    setDateQuery('');
-                    setFirstNameQuery('');
-                    setLastNameQuery('');
-                    setVehicleTypeQuery('');
-                    setVehicleRegNumberQuery(''); // Clear this field after submission
-                    setCommentQuery('');
-                    setTimeFromQuery('');
-                    setTimeToQuery('');
-                    setIsAccepted(true);
-                }
-                return response.json();
-            })
-            .then(json => {
-                setMessage(json.message);
-            })
-            .catch(() => {
-                setMessage(`Can’t access ${url} response. Blocked by browser?`);
+    const handleSubmit = async () => {
+        try {
+            const response = await fetch(`${host_link}/add_vehicle_booking`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add Authorization if needed
+                },
+                body: JSON.stringify({
+                    date: dateQuery,
+                    time_from: timeFromQuery,
+                    time_to: timeToQuery,
+                    first_name: firstNameQuery,
+                    last_name: lastNameQuery,
+                    vehicle_type: vehicleTypeQuery,
+                    vehicle_registration_number: vehicleRegNumberQuery,
+                    comments: commentQuery,
+                }),
             });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            setDateQuery('');
+            setFirstNameQuery('');
+            setLastNameQuery('');
+            setVehicleTypeQuery('');
+            setVehicleRegNumberQuery('');
+            setCommentQuery('');
+            setTimeFromQuery('');
+            setTimeToQuery('');
+            setIsAccepted(true);
+            setMessage(data.message || 'Vehicle booking successful!');
+        } catch (error) {
+            setIsAccepted(false);
+            setMessage(`Can’t access ${host_link}/add_vehicle_booking response. Error: ${error.message}`);
+        }
     };
 
     return (
@@ -81,7 +81,7 @@ export const AddVehicleBooking = () => {
                         <input className='form-input__text' type="text" value={vehicleTypeQuery} onChange={updateQuery(setVehicleTypeQuery)} />
                     </div>
                     <div className="form-input">
-                        <span className="form-input__label">VEHICLE REGISTRATION NUMBER</span> {/* Added this input field */}
+                        <span className="form-input__label">VEHICLE REGISTRATION NUMBER</span>
                         <input className='form-input__text' type="text" value={vehicleRegNumberQuery} onChange={updateQuery(setVehicleRegNumberQuery)} />
                     </div>
                 </div>
@@ -108,7 +108,7 @@ export const AddVehicleBooking = () => {
                     </div>
                 </div>
                 <div className="book-vehicle-content">
-                    <button className="form-input__button" onClick={addData}>Book Vehicle</button>
+                    <button className="form-input__button" onClick={handleSubmit}>Book Vehicle</button>
                     <h3 className='form-input__message' style={isAccepted ? { color: "green" } : { color: "red" }}>{message}</h3>
                 </div>
             </div>
@@ -117,4 +117,3 @@ export const AddVehicleBooking = () => {
 };
 
 export default AddVehicleBooking;
-
