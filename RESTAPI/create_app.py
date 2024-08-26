@@ -15,10 +15,8 @@ def create_app():
 
     Migrate(app, db)
 
-    from routes.vehicle_bookings import vehicle_bookings_bp
-    from routes.appointments import appointments_bp  # Import here if needed
-
+    from routes import vehicle_bookings_bp
+    
     app.register_blueprint(vehicle_bookings_bp)
-    app.register_blueprint(appointments_bp)  # Register if you use this blueprint
 
     return app

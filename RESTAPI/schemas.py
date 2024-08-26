@@ -1,5 +1,5 @@
 from flask_marshmallow import Marshmallow
-from models.vehicle_bookings import VehicleBooking  # Adjust the import path if necessary
+from models import VehicleBooking  # Adjust the import path if necessary
 
 ma = Marshmallow()
 
