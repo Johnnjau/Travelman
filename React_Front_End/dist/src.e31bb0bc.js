@@ -24789,6 +24789,17 @@ var AddVehicleBooking = exports.AddVehicleBooking = function AddVehicleBooking()
       setMessage('');
     };
   };
+  var handleTimeChange = function handleTimeChange(setter) {
+    return function (event) {
+      var time = event.target.value;
+      // Ensure the time is formatted as 'HH:MM:SS'
+      if (time.length === 5) {
+        // 'HH:MM' format
+        time += ':00';
+      }
+      setter(time);
+    };
+  };
   var handleSubmit = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       var response, data;
@@ -24797,11 +24808,10 @@ var AddVehicleBooking = exports.AddVehicleBooking = function AddVehicleBooking()
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return fetch("".concat(_rest_connection.host_link), {
+            return fetch("".concat(_rest_connection.host_link, "/vehicle_bookings"), {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
-                // Add Authorization if needed
               },
               body: JSON.stringify({
                 date: dateQuery,
@@ -24922,7 +24932,7 @@ var AddVehicleBooking = exports.AddVehicleBooking = function AddVehicleBooking()
     className: "form-input__text",
     type: "time",
     value: timeFromQuery,
-    onChange: updateQuery(setTimeFromQuery)
+    onChange: handleTimeChange(setTimeFromQuery)
   })), /*#__PURE__*/_react.default.createElement("div", {
     className: "form-input"
   }, /*#__PURE__*/_react.default.createElement("span", {
@@ -24931,7 +24941,7 @@ var AddVehicleBooking = exports.AddVehicleBooking = function AddVehicleBooking()
     className: "form-input__text",
     type: "time",
     value: timeToQuery,
-    onChange: updateQuery(setTimeToQuery)
+    onChange: handleTimeChange(setTimeToQuery)
   }))), /*#__PURE__*/_react.default.createElement("div", {
     className: "book-vehicle-content"
   }, /*#__PURE__*/_react.default.createElement("div", {
@@ -25754,7 +25764,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38811" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40551" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

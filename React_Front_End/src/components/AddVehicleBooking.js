@@ -18,13 +18,21 @@ export const AddVehicleBooking = () => {
         setMessage('');
     };
 
+    const handleTimeChange = setter => event => {
+        let time = event.target.value;
+        // Ensure the time is formatted as 'HH:MM:SS'
+        if (time.length === 5) { // 'HH:MM' format
+            time += ':00';
+        }
+        setter(time);
+    };
+
     const handleSubmit = async () => {
         try {
-            const response = await fetch(`${host_link}/add_vehicle_booking`, {
+            const response = await fetch(`${host_link}/vehicle_bookings`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Add Authorization if needed
                 },
                 body: JSON.stringify({
                     date: dateQuery,
@@ -94,11 +102,11 @@ export const AddVehicleBooking = () => {
                 <div className='book-vehicle-content'>
                     <div className="form-input">
                         <span className="form-input__label">FROM</span>
-                        <input className="form-input__text" type="time" value={timeFromQuery} onChange={updateQuery(setTimeFromQuery)} />
+                        <input className="form-input__text" type="time" value={timeFromQuery} onChange={handleTimeChange(setTimeFromQuery)} /> 
                     </div>
                     <div className="form-input">
                         <span className="form-input__label">TO</span>
-                        <input className="form-input__text" type="time" value={timeToQuery} onChange={updateQuery(setTimeToQuery)} />
+                        <input className="form-input__text" type="time" value={timeToQuery} onChange={handleTimeChange(setTimeToQuery)} />
                     </div>
                 </div>
                 <div className="book-vehicle-content">

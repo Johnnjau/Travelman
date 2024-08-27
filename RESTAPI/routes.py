@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from extensions import db
 from schemas import VehicleBookingSchema  # Absolute import
 from models import VehicleBooking
+from datetime import datetime
 
 vehicle_bookings_bp = Blueprint('vehicle_bookings', __name__)
 
